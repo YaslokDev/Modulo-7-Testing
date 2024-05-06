@@ -7,7 +7,7 @@ import {
 } from "./motor";
 import { partida } from "./model";
 
-const imagenCarta = document.getElementById("imagenCarta");
+export const imagenCarta = document.getElementById("imagenCarta");
 export const btnDameCarta = document.getElementById("dameCarta");
 export const btnPlantarse = document.getElementById("plantarse");
 const btnNuevaPartida = document.getElementById("restart");
@@ -38,13 +38,13 @@ export const plantarse = (): void => {
   }
 };
 
-const comprobarPuntuacion = (): void => {
+export const comprobarPuntuacion = (): void => {
   if (partida.puntuacion > 7.5) {
     finalizarJuego();
   }
 };
 
-const actualizarPuntuacion = (carta: number): void => {
+export const actualizarPuntuacion = (carta: number): void => {
   partida.puntuacion += obtenerPuntosCarta(carta);
   mostrarPuntuacion();
 };
@@ -73,7 +73,7 @@ export const mostrarPuntuacion = (): void => {
   }
 };
 
-const finalizarJuego = (): void => {
+export const finalizarJuego = (): void => {
   if (divPuntuacion !== null && divPuntuacion !== undefined && divPuntuacion instanceof HTMLDivElement) {
     divPuntuacion.innerHTML = `Tu puntuación es ${partida.puntuacion.toString()}, <strong>GAME OVER</strong>`;
   }

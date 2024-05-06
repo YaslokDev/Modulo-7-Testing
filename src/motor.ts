@@ -45,5 +45,3 @@ export const obtenerUrlCarta = (carta: number): string => {
       return "";
   }
 };
-
-// ---
