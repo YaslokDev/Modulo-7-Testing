@@ -20,19 +20,22 @@ describe("comprobarPuntuacion", () => {
   });
 
   it("Debería llamar a finalizar juego si la puntuación es mayor a 7.5", () => {
-    partida.puntuacion = 10;
+    vi.spyOn(partida, "puntuacion", "get").mockReturnValue(10);
+    //partida.puntuacion = 10;
     comprobarPuntuacion();
+    console.log("Puntuación:", partida.puntuacion);
+
     expect(finalizarJuegoSpy).toHaveBeenCalledTimes(1);
   });
 
   it("NO debería llamar a finalizar juego si la puntuación es igual a 7.5", () => {
-    partida.puntuacion = 7.5;
+    vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7.5);
     comprobarPuntuacion();
     expect(finalizarJuegoSpy).not.toHaveBeenCalled();
   });
 
   it("No debería llamar a finalizar juego si la puntuación es menor a 7.5", () => {
-    partida.puntuacion = 7;
+    vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7);
     comprobarPuntuacion();
     expect(finalizarJuegoSpy).not.toHaveBeenCalled();
   });
