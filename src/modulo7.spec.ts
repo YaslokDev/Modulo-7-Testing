@@ -2,8 +2,8 @@ import { JSDOM } from "jsdom";
 import { vi } from "vitest";
 import { partida } from "./model";
 import * as ui from "./ui";
-import { comprobarPuntuacion } from "./ui";
 import { obtenerMensajePuntuacion, generarNumeroCarta } from "./motor";
+//import { finalizarJuego } from "./ui";
 
 // Crear un objeto document fake
 global.document = new JSDOM("<doctype html><html><body></body></html>").window.document;
@@ -22,7 +22,7 @@ describe("comprobarPuntuacion", () => {
   it("Debería llamar a finalizar juego si la puntuación es mayor a 7.5", () => {
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(10);
     //partida.puntuacion = 10;
-    comprobarPuntuacion();
+    const finalizarJuegoSpy = vi.spyOn(ui, "finalizarJuego");
     console.log("Puntuación:", partida.puntuacion);
 
     expect(finalizarJuegoSpy).toHaveBeenCalledTimes(1);
@@ -30,13 +30,13 @@ describe("comprobarPuntuacion", () => {
 
   it("NO debería llamar a finalizar juego si la puntuación es igual a 7.5", () => {
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7.5);
-    comprobarPuntuacion();
+    ui.comprobarPuntuacion();
     expect(finalizarJuegoSpy).not.toHaveBeenCalled();
   });
 
   it("No debería llamar a finalizar juego si la puntuación es menor a 7.5", () => {
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7);
-    comprobarPuntuacion();
+    ui.comprobarPuntuacion();
     expect(finalizarJuegoSpy).not.toHaveBeenCalled();
   });
 });
