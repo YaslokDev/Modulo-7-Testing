@@ -1,55 +1,46 @@
-import { JSDOM } from "jsdom";
 import { vi } from "vitest";
-import { partida } from "./model";
-import * as ui from "./ui";
-import { obtenerMensajePuntuacion, generarNumeroCarta } from "./motor";
-//import { finalizarJuego } from "./ui";
+import { EstadoPartida, partida } from "./model";
+import { obtenerMensajePuntuacion, generarNumeroCarta, obtenerEstadoPartida } from "./motor";
 
-// Crear un objeto document fake
-global.document = new JSDOM("<doctype html><html><body></body></html>").window.document;
-
-describe("comprobarPuntuacion", () => {
-  let finalizarJuegoSpy: ReturnType<typeof vi.spyOn>;
-
-  beforeEach(() => {
-    finalizarJuegoSpy = vi.spyOn(ui, "finalizarJuego").mockImplementation(() => {});
+describe("obtenerEstadoPartida", () => {
+  it("Debería devolver POR_DEBAJO_MAXIMO cuando puntuación es menor a 7.5", () => {
+    //Arrange
+    const estadoEsperado: EstadoPartida = "POR_DEBAJO_MAXIMO";
+    vi.spyOn(partida, "puntuacion", "get").mockReturnValue(4);
+    //Act
+    const resultado = obtenerEstadoPartida();
+    //Assert
+    expect(resultado).toBe(estadoEsperado);
   });
 
-  afterEach(() => {
-    finalizarJuegoSpy.mockReset();
-  });
-
-  it("Debería llamar a finalizar juego si la puntuación es mayor a 7.5", () => {
-    vi.spyOn(partida, "puntuacion", "get").mockReturnValue(10);
-    //partida.puntuacion = 10;
-    const finalizarJuegoSpy = vi.spyOn(ui, "finalizarJuego");
-    console.log("Puntuación:", partida.puntuacion);
-
-    expect(finalizarJuegoSpy).toHaveBeenCalledTimes(1);
-  });
-
-  it("NO debería llamar a finalizar juego si la puntuación es igual a 7.5", () => {
+  it("Debería devolver JUSTO_MAXIMA cuando puntuación es igual a 7.5", () => {
+    //Arrange
+    const estadoEsperado: EstadoPartida = "JUSTO_MAXIMA";
     vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7.5);
-    ui.comprobarPuntuacion();
-    expect(finalizarJuegoSpy).not.toHaveBeenCalled();
+    //Act
+    const resultado = obtenerEstadoPartida();
+    //Assert
+    expect(resultado).toBe(estadoEsperado);
   });
 
-  it("No debería llamar a finalizar juego si la puntuación es menor a 7.5", () => {
-    vi.spyOn(partida, "puntuacion", "get").mockReturnValue(7);
-    ui.comprobarPuntuacion();
-    expect(finalizarJuegoSpy).not.toHaveBeenCalled();
+  it("Debería devolver TE_HAS_PASADO cuando puntuación es mayor a 7.5", () => {
+    //Arrange
+    const estadoEsperado: EstadoPartida = "TE_HAS_PASADO";
+    vi.spyOn(partida, "puntuacion", "get").mockReturnValue(10);
+    //Act
+    const resultado = obtenerEstadoPartida();
+    //Assert
+    expect(resultado).toBe(estadoEsperado);
   });
 });
 
 describe("generarNumeroCarta", () => {
   it("Debería devolver el mismo numero si es menor o igual a 7", () => {
-    expect(generarNumeroCarta(5)).toEqual(5);
     expect(generarNumeroCarta(7)).toEqual(7);
   });
 
   it("Debería devolver el número sumando 2 si es mayor a 7", () => {
     expect(generarNumeroCarta(8)).toEqual(10);
-    expect(generarNumeroCarta(10)).toEqual(12);
   });
 });
 

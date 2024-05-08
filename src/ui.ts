@@ -4,6 +4,7 @@ import {
   obtenerNumeroAleatorio,
   obtenerPuntosCarta,
   obtenerUrlCarta,
+  obtenerEstadoPartida,
 } from "./motor";
 import { partida } from "./model";
 
@@ -39,7 +40,7 @@ export const plantarse = (): void => {
 };
 
 export const comprobarPuntuacion = (): void => {
-  if (partida.puntuacion > 7.5) {
+  if (obtenerEstadoPartida() === "TE_HAS_PASADO") {
     finalizarJuego();
   }
 };

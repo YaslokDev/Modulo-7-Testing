@@ -1,3 +1,15 @@
+import { partida, EstadoPartida } from "./model";
+
+export const obtenerEstadoPartida = (): EstadoPartida => {
+  if (partida.puntuacion === 7.5) {
+    partida.estado = "JUSTO_MAXIMA";
+  }
+  if (partida.puntuacion > 7.5) {
+    partida.estado = "TE_HAS_PASADO";
+  }
+  return partida.estado;
+};
+
 export const obtenerNumeroAleatorio = (): number => Math.floor(Math.random() * 10 + 1);
 
 export const generarNumeroCarta = (numeroAleatorio: number): number =>
