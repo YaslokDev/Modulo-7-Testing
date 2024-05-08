@@ -36,32 +36,67 @@ describe("obtenerEstadoPartida", () => {
 
 describe("generarNumeroCarta", () => {
   it("Debería devolver el mismo numero si es menor o igual a 7", () => {
-    expect(generarNumeroCarta(7)).toEqual(7);
+    //Arrange
+    const numeroEsperado: number = 7;
+    //Act
+    const resultado = generarNumeroCarta(7);
+    //Assert
+    expect(resultado).toBe(numeroEsperado);
   });
 
   it("Debería devolver el número sumando 2 si es mayor a 7", () => {
-    expect(generarNumeroCarta(8)).toEqual(10);
+    //Arrange
+    const numeroEsperado: number = 10;
+    //Act
+    const resultado = generarNumeroCarta(8);
+    //Assert
+    expect(resultado).toBe(numeroEsperado);
   });
 });
 
 describe("obtenerMensajePuntuacion", () => {
   it("Debería devolver 'Has sido muy conservador' cuando la puntuación sea menor o igual a 4 o inferior a 5", () => {
-    expect(obtenerMensajePuntuacion(4)).toBe("Has sido muy conservador");
+    //Arrange
+    const puntuacionEsperada: string = "Has sido muy conservador";
+    //Act
+    const resultado = obtenerMensajePuntuacion(4);
+    //Assert
+    expect(resultado).toBe(puntuacionEsperada);
   });
 
   it("Debería devolver 'Te ha entrado el canguelo eh?' cuando la puntuación sea 5 o menor a 6", () => {
-    expect(obtenerMensajePuntuacion(5)).toBe("Te ha entrado el canguelo eh?");
+    //Arrange
+    const puntuacionEsperada: string = "Te ha entrado el canguelo eh?";
+    //Act
+    const resultado = obtenerMensajePuntuacion(5);
+    //Assert
+    expect(resultado).toBe(puntuacionEsperada);
   });
 
   it("Debería devolver 'Casi casi...' cuando la puntuación es entre 6 y 7", () => {
-    expect(obtenerMensajePuntuacion(6.5)).toBe("Casi casi...");
+    //Arrange
+    const puntuacionEsperada: string = "Casi casi...";
+    //Act
+    const resultado = obtenerMensajePuntuacion(6.5);
+    //Assert
+    expect(resultado).toBe(puntuacionEsperada);
   });
 
   it("Debería devolver '<strong>¡Lo has clavado ¡Enhorabuena 🎉🎉</strong>' cuando la puntuación es 7.5", () => {
-    expect(obtenerMensajePuntuacion(7.5)).toBe("<strong>¡Lo has clavado! ¡Enhorabuena! 🎉🎉</strong>");
+    //Arrange
+    const puntuacionEsperada: string = "<strong>¡Lo has clavado! ¡Enhorabuena! 🎉🎉</strong>";
+    //Act
+    const resultado = obtenerMensajePuntuacion(7.5);
+    //Assert
+    expect(resultado).toBe(puntuacionEsperada);
   });
 
   it("Debería devolver una cadena vacía cuando la puntuacion es mayor a 7.5", () => {
-    expect(obtenerMensajePuntuacion(8)).toBe("");
+    //Arrange
+    const puntuacionEsperada: string = "";
+    //Act
+    const resultado = obtenerMensajePuntuacion(8);
+    //Assert
+    expect(resultado).toBe(puntuacionEsperada);
   });
 });
